@@ -1,103 +1,112 @@
-import Image from "next/image";
+"use client";
+import React, {useEffect, useRef} from "react";
+import {AnimatedButton} from "@/components/ui/animated-button";
+import VenomBeam from "@/components/ui/venom-beam";
+import { Sun, Moon, Laptop } from "lucide-react";
+import {ThemeSwitch} from "@/components/ui/theme-switch";
+
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    const beamWrapRef = useRef<HTMLDivElement | null>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    useEffect(() => {
+        const root = beamWrapRef.current;
+        if (!root) return;
+
+        // locate the canvas that VenomBeam creates
+        const canvas = root.querySelector("canvas") as HTMLCanvasElement | null;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        // keep originals so we can restore on cleanup
+        const originalFillRect = (ctx as any).fillRect.bind(ctx);
+
+        // pick your background color here:
+        const DESIRED_BG = "rgba(12, 24, 56, 1)"; // <- change this
+
+        // override fillRect to swap out the component's background fills
+        (ctx as any).fillRect = function (x: number, y: number, w: number, h: number) {
+            try {
+                const fs = String(this.fillStyle).replace(/\s+/g, "");
+                // detect the component's solid or semi-transparent "background" fills
+                // (covers: "#000000", "#f8f8ff", "rgba(0,0,0,0.05)", "rgba(248,248,255,0.1)", etc.)
+                const isComponentBg =
+                    /(^#000000|^black|rgba?\(0,0,0(,0?\.?\d+)?\))/i.test(fs) ||
+                    /(^#f8f8ff|^white|rgba?\(248,248,255(,0?\.?\d+)?\))/i.test(fs) ||
+                    fs.includes("rgba(0,0,0,0.05)") ||
+                    fs.includes("rgba(248,248,255,0.1)") ||
+                    fs.includes("248,248,255") ||
+                    fs.includes("0,0,0,0.05");
+
+                if (isComponentBg) {
+                    // draw our chosen background instead of the component's
+                    this.save();
+                    this.fillStyle = DESIRED_BG;
+                    originalFillRect(x, y, w, h);
+                    this.restore();
+                    return;
+                }
+            } catch (e) {
+                // if anything goes wrong, fall back to original behavior
+            }
+            // otherwise behave normally
+            return originalFillRect(x, y, w, h);
+        };
+
+        // cleanup: restore original
+        return () => {
+            try {
+                (ctx as any).fillRect = originalFillRect;
+            } catch {
+            }
+        };
+    }, []);
+
+    return (
+        <div ref={beamWrapRef} className="min-h-screen">
+            <VenomBeam className="flex items-center w-full flex-col px-4">
+
+
+                <div className="flex flex-row justify-around w-full backdrop-blur-sm rounded-xl bg-dark-translucent shadow-md shadow-dark-translucent-2 p-2">
+
+                    <AnimatedButton
+                        className="bg-purple-500 text-white"
+                        variant="default"
+                        size="default"
+                        glow={true}
+                        textEffect="normal"
+                        uppercase={true}
+                        rounded="custom"
+                        asChild={false}
+                        hideAnimations={false}
+                        shimmerColor="#7300cb"
+                        shimmerSize="0.15em"
+                        shimmerDuration="3s"
+                        borderRadius="100px"
+                        background="rgba(0, 0, 0, 1)"
+                    >
+                        ScrollX UI
+                    </AnimatedButton>
+                    <ThemeSwitch
+                        variant="icon-click"
+                        modes={["light", "dark", "system"]}
+                        icons={[
+                            <Sun key="sun-icon" size={16} />,
+                            <Moon key="moon-icon" size={16} />,
+                            <Laptop key="laptop-icon" size={16} />,
+                        ]}
+                        showInactiveIcons="all"
+                    />
+                </div>
+                <h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-4xl md:text-5xl lg:text-7xl font-sans pb-1 md:pb-2 pt-2 md:pt-4 relative z-20 font-bold tracking-tight leading-tight">
+                    Hello World!
+                </h2>
+                <p className="max-w-xl mx-auto text-base md:text-lg text-neutral-700 dark:text-neutral-400 text-center mt-1 mb-4">
+                    I&#39;m Zytronium
+                </p>
+            </VenomBeam>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    );
 }
