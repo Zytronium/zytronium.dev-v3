@@ -45,8 +45,10 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
-
 :root {
+    --test-backgroundImage: linear-gradient(135deg, #a39fbb 0%, #afa7ce 60%);
+    --test-backgroundColor: #928baf;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
