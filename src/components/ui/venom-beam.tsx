@@ -46,14 +46,14 @@ const VenomBeam: React.FC<VenomBeamProps> = ({ children, className = "" }) => {
   const canvasStyle = useMemo<React.CSSProperties>(() => {
     if (theme === "dark") {
       return {
-        backgroundImage: "linear-gradient(135deg, #160022 0%, #36003f 45%, #68007a 100%)",
-        backgroundColor: "#10001a",
+        backgroundImage: "var(--canvas-backgroundImage-dark)",
+        backgroundColor: "var(--canvas-backgroundColor-dark)",
       } as React.CSSProperties;
     }
     // Light theme: slightly dim steel-blue -> subtle purple tint (kept light-ish)
     return {
-      backgroundImage: "linear-gradient(135deg, #a39fbb 0%, #afa7ce 60%)",
-      backgroundColor: "#928baf",
+      backgroundImage: "var(--canvas-backgroundImage-light)",
+      backgroundColor: "var(--canvas-backgroundColor-light)",
     } as React.CSSProperties;
   }, [theme]);
 
@@ -82,9 +82,9 @@ const VenomBeam: React.FC<VenomBeamProps> = ({ children, className = "" }) => {
           life: Math.random() * 100,
           maxLife: Math.random() * 220 + 60,
           // Slightly larger in light mode so the darker purple is visible
-          size: Math.random() * (isDark ? 1.6 : 2.2) + (isDark ? 0.8 : 1.2),
+          size: Math.random() * 2 + 1.2,
           // light mode base opacity remains high so darker purple reads; dark mode slightly lighter
-          opacity: Math.random() * (isDark ? 0.45 : 0.35) + (isDark ? 0.25 : 0.45),
+          opacity: Math.random() * (isDark ? 0.75 : 0.15) + (isDark ? 0.15 : 0.35),
         });
       }
       return list;

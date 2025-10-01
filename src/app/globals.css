@@ -46,8 +46,11 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 :root {
-    --test-backgroundImage: linear-gradient(135deg, #a39fbb 0%, #afa7ce 60%);
-    --test-backgroundColor: #928baf;
+    --canvas-backgroundImage-light: linear-gradient(135deg, #a39fbb 0%, #afa7ce 80%);
+    --canvas-backgroundColor-light: #928baf;
+
+    --canvas-backgroundImage-dark: linear-gradient(135deg, #0f0116 0%, #170122 45%, #36003f 100%);
+    --canvas-backgroundColor-dark: #0b0111;
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);

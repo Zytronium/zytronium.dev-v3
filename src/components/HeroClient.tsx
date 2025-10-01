@@ -14,7 +14,7 @@ export default function HeroClient() {
     // nothing to do here — venom-beam handles pausing if it's implemented correctly
   }, []);
   const { resolvedTheme } = useTheme();
-  const theme = "dark";
+  const theme = resolvedTheme ?? "dark";
 
   const buttonBg = theme === "light" ? "rgba(255,255,255,1)" : "rgba(0,0,0,1)";
   const buttonTextClass = theme === "light" ? "text-neutral-900" : "text-white";
