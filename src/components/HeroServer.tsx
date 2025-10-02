@@ -15,8 +15,8 @@ export default function HeroServer() {
   const containerTextClass = theme === "light" ? "text-neutral-900" : "text-neutral-400";
 
   return (
-    <section id="hero" className="relative min-h-[480px] w-full">
-      <div className="flex flex-row justify-around w-full backdrop-blur-sm rounded-xl bg-dark-translucent shadow-md shadow-dark-translucent-2 p-2">
+    <section id="hero" className="relative w-full">
+      {/*<div className="flex flex-row justify-around w-full backdrop-blur-sm rounded-xl bg-dark-translucent shadow-md shadow-dark-translucent-2 p-2">
         <AnimatedButton
           className={`${buttonTextClass}`}
           variant="default"
@@ -45,16 +45,13 @@ export default function HeroServer() {
           ]}
           showInactiveIcons="all"
         />
-      </div>
+      </div>*/}
 
-      <h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-4xl md:text-5xl lg:text-7xl font-sans pb-1 md:pb-2 pt-2 md:pt-4 relative z-20 font-bold tracking-tight leading-tight">
-        Hello World!
-      </h2>
+      {/*<h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-4xl md:text-5xl lg:text-7xl font-sans pb-1 md:pb-2 pt-2 md:pt-4 relative z-20 font-bold tracking-tight leading-tight">
+        Hello, World!
+      </h2>*/}
 
-      <p className={`max-w-xl mx-auto text-base md:text-lg text-center mt-1 mb-4 ${containerTextClass}`}>
-        I&apos;m Zytronium
-      </p>
-      <div className="flex justify-center items-center mt-6 w-full h-44">
+      <div className="flex justify-center items-center mt-6 w-full">
         {/* Hydrated client component replaces this */}
         <ThunderLoader
           size="4xl"
@@ -63,8 +60,6 @@ export default function HeroServer() {
           showFill={true}
         />
       </div>
-
-
 
     </section>
   );

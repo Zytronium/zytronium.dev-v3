@@ -321,7 +321,7 @@ const VenomBeam: React.FC<VenomBeamProps> = ({ children, className = "" }) => {
 
   return (
     <div
-      className={`relative h-[24rem] md:h-screen w-full overflow-hidden ${className}`}
+      className={`relative h-screen w-full overflow-hidden ${className}`}
       role="presentation"
       aria-hidden="true"
     >
