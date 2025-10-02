@@ -1,9 +1,13 @@
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { ThemeSwitch } from "@/components/ui/theme-switch";
+import { ThunderLoader } from "@/components/ui/thunder-loader";
 import { Laptop, Moon, Sun } from "lucide-react";
 import React from "react";
 
 export default function HeroServer() {
+  const thunderGradientId = "thunder-gradient";
+  const thunderFilterId = "thunder-filter";
+
   const theme = "dark";
 
   const buttonBg = theme === "light" ? "rgba(255,255,255,1)" : "rgba(0,0,0,1)";
@@ -50,6 +54,18 @@ export default function HeroServer() {
       <p className={`max-w-xl mx-auto text-base md:text-lg text-center mt-1 mb-4 ${containerTextClass}`}>
         I&apos;m Zytronium
       </p>
+      <div className="flex justify-center items-center mt-6 w-full h-44">
+        {/* Hydrated client component replaces this */}
+        <ThunderLoader
+          size="4xl"
+          animate="thunder"
+          showGlow={true}
+          showFill={true}
+        />
+      </div>
+
+
+
     </section>
   );
 }
