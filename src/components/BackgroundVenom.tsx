@@ -9,7 +9,7 @@ const VenomBeam = dynamic(() => import("@/components/ui/venom-beam"), {
 
 export default function BackgroundVenom() {
   return (
-    <div className="fixed inset-0 -z-10 pointer-events-none">
+    <div className="fixed inset-0 pointer-events-none">
       <VenomBeam className="w-full h-full" />
     </div>
   );

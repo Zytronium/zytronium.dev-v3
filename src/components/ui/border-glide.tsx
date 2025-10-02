@@ -183,6 +183,7 @@ const BorderGlide: React.FC<BorderGlideProps> = ({
 
   const childrenArray = React.Children.toArray(children)
   const totalItems = childrenArray.length
+  const isSingle = totalItems <= 1
 
   const swipeConfidenceThreshold = 10000
   const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity
@@ -203,13 +204,15 @@ const BorderGlide: React.FC<BorderGlideProps> = ({
   }, [totalItems, triggerUpdate])
 
   const handleDragEnd = useCallback((e: MouseEvent | TouchEvent | PointerEvent, { offset, velocity }: PanInfo) => {
+    // ignore drag when single item
+    if (isSingle) return
     const swipe = swipePower(offset.x, velocity.x)
     if (swipe < -swipeConfidenceThreshold) {
       paginate(1)
     } else if (swipe > swipeConfidenceThreshold) {
       paginate(-1)
     }
-  }, [paginate])
+  }, [paginate, isSingle])
 
   const setupAutoPlay = useCallback(() => {
     if (autoPlayRef.current) {
@@ -269,7 +272,7 @@ const BorderGlide: React.FC<BorderGlideProps> = ({
   return (
     <BorderGlideContext.Provider value={contextValue}>
       <div className={cn("relative w-full", className)}>
-        <div className="relative w-full h-full overflow-hidden rounded-xl bg-transparent p-[2px]">
+        <div className="relative w-full h-full overflow-hidden rounded-[1.75rem] bg-transparent p-[2px]">
           <div className="absolute inset-0 pointer-events-none">
             <MovingBorder
               duration={borderDuration}
@@ -283,7 +286,7 @@ const BorderGlide: React.FC<BorderGlideProps> = ({
               <div />
             </MovingBorder>
           </div>
-          <div className="relative w-full h-full rounded-xl overflow-hidden bg-white dark:bg-[#09090b] backdrop-blur-sm">
+          <div className="relative w-full h-full rounded-4xl overflow-hidden bg-translucent-light dark:bg-translucent-dark backdrop-blur-md">
             <AnimatePresence initial={false} custom={directionRef.current} mode="wait">
               <motion.div
                 key={currentIndexRef.current}
@@ -293,11 +296,14 @@ const BorderGlide: React.FC<BorderGlideProps> = ({
                 animate="center"
                 exit="exit"
                 transition={spring}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                onDragEnd={handleDragEnd}
-                className="absolute inset-0 cursor-grab active:cursor-grabbing will-change-transform"
+                drag={isSingle ? false : "x"}
+                dragConstraints={isSingle ? undefined : { left: 0, right: 0 }}
+                dragElastic={isSingle ? 0 : 0.2}
+                onDragEnd={isSingle ? undefined : handleDragEnd}
+                className={cn(
+                  "absolute inset-0 will-change-transform",
+                  isSingle ? "cursor-default" : "cursor-grab active:cursor-grabbing"
+                )}
                 style={{ willChange: "transform" }}
               >
                 {childrenArray[currentIndexRef.current]}

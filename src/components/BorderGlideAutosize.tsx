@@ -2,7 +2,7 @@
 "use client";
 
 import React, { ReactNode, useEffect, useRef, useState } from "react";
-import { BorderGlide } from "@/components/ui/border-glide";
+import { BorderGlide, BorderGlideContent } from "@/components/ui/border-glide";
 import BackgroundMeteors from "@/components/ui/backgroundmeteors";
 import ProfileSection from "@/components/ProfileSection";
 
@@ -30,7 +30,7 @@ export default function BorderGlideAutosize({
                                               className,
                                               autoPlayInterval = 6000,
                                               borderDuration = 4000,
-                                              borderColor = "radial-gradient(ellipse, #3b82f6, transparent)",
+                                              borderColor = "radial-gradient(ellipse, #803bf6, transparent)",
                                               borderWidth = "8rem",
                                               children,
                                             }: Props) {
@@ -43,7 +43,7 @@ export default function BorderGlideAutosize({
   const rafRef = useRef<number | null>(null);
 
   // desired width for measurement (must match visible container width)
-  const desiredWidth = typeof window !== "undefined" ? Math.min(960, Math.round(window.innerWidth * 0.8)) : 960;
+  const desiredWidth = typeof window !== "undefined" ? Math.min(128, Math.round(window.innerWidth * 0.85)) : 128;
 
   useEffect(() => {
     const measureEl = measureRef.current;
@@ -71,7 +71,7 @@ export default function BorderGlideAutosize({
     // also watch for window resizes (width changes will affect wrapping and height)
     const onWin = () => {
       // update measurement element width to match new viewport 85vw clamped
-      const w = Math.min(960, Math.round(window.innerWidth * 0.8));
+      const w = Math.min(128, Math.round(window.innerWidth * 0.85));
       if (measureRef.current) measureRef.current.style.width = `${w}px`;
       // re-measure in next frame
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -109,7 +109,6 @@ export default function BorderGlideAutosize({
   const wrapperStyle: React.CSSProperties = {
     height: heightPx ? `${heightPx}px` : undefined,
     width: "85vw",
-    maxWidth: "960px",
     marginLeft: "auto",
     marginRight: "auto",
   };
@@ -131,11 +130,16 @@ export default function BorderGlideAutosize({
           pointerEvents: "none",
         }}
       >
-        <ProfileSection />
+        <BorderGlideContent
+          className="flex flex-col h-full justify-between p-6 text-center space-y-4">
+          <div className="flex flex-col items-center gap-2">
+            { children }
+          </div>
+        </BorderGlideContent>
       </div>
 
       {/* Visible wrapper: we set explicit height here so BorderGlide's absolute internals can layout correctly */}
-      <div className={`mx-auto ${className ?? ""}`} style={{ maxWidth: "960px" }}>
+      <div className={`mx-auto ${className ?? ""}`} >
         <div style={wrapperStyle} className="mx-auto">
           <BorderGlide
             className="mx-auto w-full h-full"
@@ -146,7 +150,12 @@ export default function BorderGlideAutosize({
           >
             <BackgroundMeteors /* this should fill parent height (h-full behavior) */>
               {/* Place the real content here; BorderGlide will show this as the slide */}
-              { children }
+              <BorderGlideContent
+                className="flex flex-col h-full justify-between p-6 text-center space-y-4">
+                <div className="flex flex-col items-center gap-2">
+                  { children }
+                </div>
+              </BorderGlideContent>
             </BackgroundMeteors>
           </BorderGlide>
         </div>

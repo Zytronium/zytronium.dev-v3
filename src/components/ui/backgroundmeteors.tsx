@@ -18,7 +18,7 @@ export default function BackgroundMeteors({
 }: BackgroundMeteorsProps) {
   const [beams, setBeams] = useState<Beam[]>([]);
   const gridSize = 40;
-  const totalLines = 35;
+  const totalLines = 135;
 
   const generateSafeGridPositions = (count: number): number[] => {
     const available: number[] = [];
@@ -43,6 +43,7 @@ export default function BackgroundMeteors({
 
   useEffect(() => {
     const generateBeams = () => {
+      console.log("Generating a beam...");
       const count = Math.floor(Math.random() * 2) + 3;
       const xPositions = generateSafeGridPositions(count);
 
@@ -62,7 +63,7 @@ export default function BackgroundMeteors({
   }, []);
 
   return (
-    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-white dark:bg-black">
+    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-translucent-light dark:bg-translucent-dark">
       <div
         className="absolute inset-0"
         style={{
@@ -80,7 +81,7 @@ export default function BackgroundMeteors({
         }}
       />
       <div
-        className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white dark:bg-black 
+        className="pointer-events-none absolute inset-0 flex items-center justify-center bg-translucent-light dark:bg-translucent-dark
         [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"
       />
       {beams.map((b) => (
@@ -97,8 +98,8 @@ export default function BackgroundMeteors({
         >
           <div
             className="h-14 w-px rounded-full
-              bg-gradient-to-t from-indigo-700 via-teal-600 to-transparent
-              dark:from-indigo-400 dark:via-teal-500 dark:to-transparent"
+              bg-gradient-to-t from-fuchsia-700 via-blue-600 to-transparent
+              dark:from-fuchsia-400 dark:via-blue-500 dark:to-transparent"
             style={{ margin: "0 auto" }}
           />
         </motion.div>

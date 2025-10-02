@@ -5,13 +5,11 @@ import {
   BorderGlideContent
 } from "@/components/ui/border-glide";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import LustreText from "@/components/ui/lustretext";
 
 export default function ProfileSection() {
   return (
-    // This is the *content* that will be the child of BorderGlide (now provided in page.tsx)
-      <BorderGlideContent
-        className="flex flex-col h-full justify-between p-6 text-center space-y-4">
-        <div className="flex flex-col items-center gap-2">
+    <>
           <Avatar className="w-48 h-48 border-2 border-primary">
             <AvatarImage
               src={"https://zytronium.dev/images/zytronium_dev_logo.png"}
@@ -29,20 +27,19 @@ export default function ProfileSection() {
               </div>
               <div
                 className="relative font-[Xolonium] bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-cyan-300 via-indigo-500 to-fuchsia-500 py-4">
-                <span>Zytronium</span>
+                <span><LustreText speed={4} variant={2} text="Zytronium" /></span>
               </div>
             </div>
           </h2>
           <div className="h-px w-32 bg-gradient-to-r from-transparent via-purple-500 to-transparent mx-auto mb-8" />
           <div>
-            <p>
+            <p className="px-4 sm:px-12 md:px-18 lg:px-32">
               Welcome to my personal developer website! I&apos;m Zytronium, a
               passionate developer from Oklahoma who loves programming,
               aerospace, and gaming. This site serves as a home base for my
               projects, experiments, and developer identity.
             </p>
           </div>
-        </div>
-      </BorderGlideContent>
+    </>
   );
 }
