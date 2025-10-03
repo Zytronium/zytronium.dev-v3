@@ -55,7 +55,7 @@ export default function HeroClient() {
       </div>
 
       <h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-4xl md:text-5xl lg:text-7xl font-sans pb-1 md:pb-2 pt-2 md:pt-4 relative z-20 font-bold tracking-tight leading-tight">
-        <LustreText speed={6} variant={"2"} text="Hello World!" />
+        <LustreText text="Hello World!" />
       </h2>
     </div>
   );

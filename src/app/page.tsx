@@ -16,11 +16,13 @@ export default function Page() {
       <div className="py-8">
         <BorderGlideAutosize>
           <ProfileSection />
-          {/*<PortfolioSection />*/}
-          {/*<ContactSection />*/}
         </BorderGlideAutosize>
       </div>
-      <BackgroundMeteors />
+
+      <BackgroundMeteors>
+        {/*<PortfolioSection />*/}
+        {/*<ContactSection />*/}
+      </BackgroundMeteors>
       {/*<Footer />*/}
     </main>
   );

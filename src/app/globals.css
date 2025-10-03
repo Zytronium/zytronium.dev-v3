@@ -55,6 +55,12 @@
     --canvas-backgroundImage-dark: linear-gradient(135deg, #0f0116 0%, #170122 45%, #36003f 100%);
     --canvas-backgroundColor-dark: #0b0111;
 
+    --color-silver: #d2d7d9;
+    --color-silver-2: #babdbe;
+
+    --test1: #ff6555;
+    --test2: #ffffff;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -118,6 +124,36 @@
                 rgba(255, 255, 255, 0.05) 100%
         );
     }
+    .lustre-2 {
+        background-image: linear-gradient(
+                90deg,
+                    /* first shine (maps original stops into 0–25%) */
+                rgba(255,255,255,0.05) 0%,
+                rgba(255,255,255,0.15) 7.5%,
+                rgba(255,255,255,0.35) 11.25%,
+                rgba(255,255,255,0.8) 12.5%,
+                rgba(255,255,255,0.35) 13.75%,
+                rgba(255,255,255,0.15) 17.5%,
+                rgba(255,255,255,0.05) 25%,
+
+                    /* gap (mostly transparent between 25% and 75%) */
+                rgba(255,255,255,0.025) 25%,
+                rgba(255,255,255,0.025) 75%,
+
+                    /* second shine (maps original stops into 75–100%) */
+                rgba(255,255,255,0.05) 75%,
+                rgba(255,255,255,0.15) 82.5%,
+                rgba(255,255,255,0.35) 86.25%,
+                rgba(255,255,255,0.8) 87.5%,
+                rgba(255,255,255,0.35) 88.75%,
+                rgba(255,255,255,0.15) 92.5%,
+                rgba(255,255,255,0.05) 100%
+        );
+        background-size: 400% 100%;
+        background-repeat: no-repeat;
+        background-position: 100% 0;
+    }
+
 
     @keyframes shine {
         0% {
@@ -128,13 +164,18 @@
         }
     }
 
+    /* animation that slides the 4x-wide background across the element */
+    @keyframes shine-2 {
+        0%   { background-position: 200% 0; }
+        100% { background-position: -300% 0; } /* moved by 400% total */
+    }
+
     .animate-shine {
         animation: shine 5s linear infinite;
     }
 
     .animate-shine-2 {
-        animation-delay: 2s;
-        animation: shine 2s linear infinite;
+        animation: shine-2 5s linear infinite;
     }
 }
 

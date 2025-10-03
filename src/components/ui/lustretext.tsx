@@ -16,7 +16,7 @@ const LustreText: React.FC<LustreTextProps> = ({
   className = "",
 }) => {
   const animationStyle = {
-    animationDuration: `${speed}s`,
+    animationDuration: `${variant === 1 ? speed : speed * 4}s`,
     animationTimingFunction: "linear",
     animationIterationCount: "infinite",
     animationFillMode: "forwards",
@@ -27,7 +27,7 @@ const LustreText: React.FC<LustreTextProps> = ({
       className={`
     lustre-text
     ${!disabled ? `${variant === 1 ? "animate-shine" : `animate-shine-${variant}`}` : ""}
-    lustre-dark
+    ${variant === 1 ? "lustre-dark" : `lustre-${variant}`}
     ${className}
   `}
       style={!disabled ? animationStyle : undefined}

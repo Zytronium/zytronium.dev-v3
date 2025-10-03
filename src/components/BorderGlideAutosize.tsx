@@ -27,13 +27,13 @@ interface Props {
 }
 
 export default function BorderGlideAutosize({
-                                              className,
-                                              autoPlayInterval = 6000,
-                                              borderDuration = 4000,
-                                              borderColor = "radial-gradient(ellipse, #803bf6, transparent)",
-                                              borderWidth = "8rem",
-                                              children,
-                                            }: Props) {
+  className,
+  autoPlayInterval = 6000,
+  borderDuration = 4000,
+  borderColor = "radial-gradient(ellipse, #803bf6, transparent)",
+  borderWidth = "8rem",
+  children,
+}: Props) {
   // measured height (px)
   const [heightPx, setHeightPx] = useState<number | null>(null);
 
@@ -133,13 +133,13 @@ export default function BorderGlideAutosize({
         <BorderGlideContent
           className="flex flex-col h-full justify-between p-6 text-center space-y-4">
           <div className="flex flex-col items-center gap-2">
-            { children }
+            {children}
           </div>
         </BorderGlideContent>
       </div>
 
       {/* Visible wrapper: we set explicit height here so BorderGlide's absolute internals can layout correctly */}
-      <div className={`mx-auto ${className ?? ""}`} >
+      <div className={`mx-auto ${className ?? ""}`}>
         <div style={wrapperStyle} className="mx-auto">
           <BorderGlide
             className="mx-auto w-full h-full"
@@ -153,7 +153,7 @@ export default function BorderGlideAutosize({
               <BorderGlideContent
                 className="flex flex-col h-full justify-between p-6 text-center space-y-4">
                 <div className="flex flex-col items-center gap-2">
-                  { children }
+                  {children}
                 </div>
               </BorderGlideContent>
             </BackgroundMeteors>

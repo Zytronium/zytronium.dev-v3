@@ -73,7 +73,7 @@ const ThunderLoader = React.forwardRef<HTMLDivElement, ThunderLoaderProps>(
     },
     ref
   ) => {
-    const colors = variantColors[variant] || variantColors.default;
+    const colors = variantColors[variant!] || variantColors.default;
     const finalFillColor = fillColor || colors.shimmer;
     const finalGlowColor = glowColor || colors.glow;
     const finalBaseColor = baseColor || colors.base;

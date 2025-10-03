@@ -1,18 +1,10 @@
-import { AnimatedButton } from "@/components/ui/animated-button";
-import { ThemeSwitch } from "@/components/ui/theme-switch";
 import { ThunderLoader } from "@/components/ui/thunder-loader";
-import { Laptop, Moon, Sun } from "lucide-react";
 import React from "react";
 
 export default function HeroServer() {
-  const thunderGradientId = "thunder-gradient";
-  const thunderFilterId = "thunder-filter";
-
-  const theme = "dark";
-
-  const buttonBg = theme === "light" ? "rgba(255,255,255,1)" : "rgba(0,0,0,1)";
-  const buttonTextClass = theme === "light" ? "text-neutral-900" : "text-white";
-  const containerTextClass = theme === "light" ? "text-neutral-900" : "text-neutral-400";
+/*  const buttonBg = "rgba(0,0,0,1)";
+  const buttonTextClass = "text-white";
+  const containerTextClass = "text-neutral-400";*/
 
   return (
     <section id="hero" className="relative w-full">
