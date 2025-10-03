@@ -52,7 +52,7 @@ export default function ProfileSection() {
           }}
           />
       </div>
-      <Flexbox className="gap-2 mb-4" justify="center">
+      <Flexbox className="gap-2 mb-4" justify="center" wrap>
 
         <Badge bgColor="var(--color-silver)" fgColor="#111529" shiny={true}>
           React
