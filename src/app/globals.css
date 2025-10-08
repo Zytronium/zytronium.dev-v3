@@ -58,9 +58,6 @@
     --color-silver: #d2d7d9;
     --color-silver-2: #babdbe;
 
-    --test1: #ff6555;
-    --test2: #ffffff;
-
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);

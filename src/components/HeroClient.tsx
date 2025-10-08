@@ -39,7 +39,7 @@ export default function HeroClient() {
           borderRadius="100px"
           background={buttonBg}
         >
-          ScrollX UI
+          Zytronium.Dev
         </AnimatedButton>
 
         <ThemeSwitch
