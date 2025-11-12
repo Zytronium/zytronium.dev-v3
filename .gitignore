@@ -25,6 +25,7 @@
 *.pem
 /reveal-contact.php
 /.idea/
+/.idea/*
 
 # debug
 npm-debug.log*
